@@ -1,9 +1,9 @@
-import plane.Logon;
+import frames.LoginFrame;
 
 public class Start{
 	
 	public static void main(String[] args) {
-		Logon.Sart();
+		LoginFrame.Start();
 	}
 	
 	

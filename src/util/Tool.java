@@ -1,6 +1,6 @@
 package util;
 
-import plane.DataAdapter;
+import controller.DataAdapter;
 
 public class Tool {
     public static DataAdapter getDataAdpater(){

@@ -1,33 +1,40 @@
-package plane;
+package frames;
+
+import bean.FlightInfo;
+import bean.Passenger;
+import controller.FlightController;
+import controller.manageOrder;
+import controller.managePassenger;
+import util.tools;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-//pgCenter(¸öÈËÖÐÐÄ)Àà£¬´´½¨ÁË³Ë¿Í²é¿´¸öÈËÐÅÏ¢ºÍ²é¿´¶©µ¥µÄ´°¿Ú
-public class pgCennter {
+//pgCenter(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½à£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ë³Ë¿Í²é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Í²é¿´ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+public class pgCennterFrame {
 
 	public static void myInfo(Passenger pg) {
-		JFrame my = new JFrame("¸öÈËÐÅÏ¢");
+		JFrame my = new JFrame("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢");
 		Container con = my.getContentPane();
 		my.setLayout(new GridBagLayout());
 		JPanel p2 = new JPanel(new GridLayout(6, 2, 10, 40));
 		JPanel p3 = new JPanel(new GridLayout(5, 2, 10, 55));
 		JPanel p4 = new JPanel(new GridLayout(1, 3, 50, 5));
 		JLabel j1 = new JLabel("passengerID", SwingConstants.CENTER);
-		JLabel j2 = new JLabel("Éí·ÝÖ¤ºÅÂë", SwingConstants.CENTER);
-		JLabel j3 = new JLabel("ÐÕÃû", SwingConstants.CENTER);
-		JLabel j4 = new JLabel("ÐÔ±ð", SwingConstants.CENTER);
-		JLabel j5 = new JLabel("ÃÜÂë", SwingConstants.CENTER);
-		JLabel j6 = new JLabel("ÓÃ»§Ãû", SwingConstants.CENTER);
-		JLabel j7 = new JLabel("ÊÖ»úºÅ", SwingConstants.CENTER);
-		JLabel j8 = new JLabel("ÑéÖ¤ÃÜÂë", SwingConstants.CENTER);
-		JLabel j9 = new JLabel("ÊäÈëÐÂÃÜÂë", SwingConstants.CENTER);
-		JLabel j10 = new JLabel("È·ÈÏÃÜÂë", SwingConstants.CENTER);
-		JButton b1 = new JButton("ÐÞ¸ÄÃÜÂë");
-		JButton b2 = new JButton("È¡ÏûÐÞ¸Ä");
-		JButton b3 = new JButton("È·ÈÏÐÞ¸Ä");
-		JButton b4 = new JButton("ÐÞ¸Ä×ÊÁÏ");
+		JLabel j2 = new JLabel("ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j3 = new JLabel("ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j4 = new JLabel("ï¿½Ô±ï¿½", SwingConstants.CENTER);
+		JLabel j5 = new JLabel("ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j6 = new JLabel("ï¿½Ã»ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j7 = new JLabel("ï¿½Ö»ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j8 = new JLabel("ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j9 = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j10 = new JLabel("È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JButton b1 = new JButton("ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½");
+		JButton b2 = new JButton("È¡ï¿½ï¿½ï¿½Þ¸ï¿½");
+		JButton b3 = new JButton("È·ï¿½ï¿½ï¿½Þ¸ï¿½");
+		JButton b4 = new JButton("ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½");
 		JLabel t1 = new JLabel(pg.getPassengerId(), SwingConstants.CENTER);
 		JLabel t2 = new JLabel(pg.getIdentityId(), SwingConstants.CENTER);
 		JLabel t3 = new JLabel(pg.getRealName(), SwingConstants.CENTER);
@@ -38,31 +45,31 @@ public class pgCennter {
 		JPasswordField t8 = new JPasswordField("");
 		JPasswordField t9 = new JPasswordField("");
 		JPasswordField t10 = new JPasswordField("");
-		j1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j3.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j4.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j5.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j6.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j7.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j8.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j9.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j10.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t2.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		t3.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t4.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t5.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t6.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t7.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t8.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t9.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t10.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b3.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b4.setFont(new Font("ËÎÌå", Font.BOLD, 30));
+		j1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j4.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j5.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j6.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j7.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j8.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j9.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j10.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		t3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t4.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t5.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t6.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t7.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t8.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t9.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t10.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b4.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
 		b2.setEnabled(false);
 		b3.setEnabled(false);
 		t8.setEditable(false);
@@ -100,7 +107,7 @@ public class pgCennter {
 					if (!new String(t9.getPassword()).trim().equals("") && new String(t9.getPassword()).equals(new String(t10.getPassword()))) {
 						pg.setPassword(new String(t9.getPassword()));
 						managePassenger.savePassenger();
-						JOptionPane.showMessageDialog(null, "ÃÜÂëÐÞ¸Ä³É¹¦");
+						JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä³É¹ï¿½");
 						t8.setText("");
 						t9.setText("");
 						t10.setText("");
@@ -114,9 +121,9 @@ public class pgCennter {
 						b3.setEnabled(false);
 						b4.setEnabled(true);
 					} else
-						JOptionPane.showMessageDialog(null, "ÃÜÂë²»Ò»ÖÂ»òÃÜÂëÎª¿Õ");
+						JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ë²»Ò»ï¿½Â»ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
 				} else
-					JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
 
 		});
@@ -128,7 +135,7 @@ public class pgCennter {
 					pg.setUserName(t6.getText());
 					pg.setTeleNum(t7.getText());
 					managePassenger.savePassenger();
-					String message = String.format("ÐÞ¸Ä×ÊÁÏ³É¹¦\nÓÃ»§Ãû£º%s\nÊÖ»úºÅÂë£º%s", pg.getUserName(), pg.getTeleNum());
+					String message = String.format("ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ï³É¹ï¿½\nï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½%s\nï¿½Ö»ï¿½ï¿½ï¿½ï¿½ë£º%s", pg.getUserName(), pg.getTeleNum());
 					JOptionPane.showMessageDialog(null, message);
 				}
 			}
@@ -173,38 +180,38 @@ public class pgCennter {
 	}
 
 	public static void myOr(Passenger pg) {
-		JFrame my = new JFrame("ÎÒµÄ¶©µ¥");
+		JFrame my = new JFrame("ï¿½ÒµÄ¶ï¿½ï¿½ï¿½");
 		Container con = my.getContentPane();
 		my.setLayout(new GridBagLayout());
 		JTextArea j = new JTextArea(manageOrder.lookOrder(pg));
-		JTextArea t = new JTextArea("²éÑ¯½á¹û");
+		JTextArea t = new JTextArea("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½");
 		JScrollPane sp1 = new JScrollPane(j);
 		JScrollPane sp2 = new JScrollPane(t);
 		JPanel p1 = new JPanel(new GridLayout(3, 4, 30, 60));
-		JButton b1 = new JButton("²éÑ¯º½°à");
-		JButton b2 = new JButton("Ô¤¶©");
-		JButton b3 = new JButton("²éÑ¯¶©µ¥");
-		JButton b4 = new JButton("Ö§¸¶");
-		JButton b5 = new JButton("ÍË¶©");
-		JLabel j1 = new JLabel("º½°àºÅ", SwingConstants.CENTER);
-		JLabel j2 = new JLabel("ÈÕÆÚ", SwingConstants.CENTER);
-		JLabel j3 = new JLabel("¶©µ¥ºÅ", SwingConstants.CENTER);
+		JButton b1 = new JButton("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½");
+		JButton b2 = new JButton("Ô¤ï¿½ï¿½");
+		JButton b3 = new JButton("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½");
+		JButton b4 = new JButton("Ö§ï¿½ï¿½");
+		JButton b5 = new JButton("ï¿½Ë¶ï¿½");
+		JLabel j1 = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j2 = new JLabel("ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j3 = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
 		JTextField t1 = new JTextField("");
 		JTextField t2 = new JTextField("");
 		JTextField t3 = new JTextField("");
-		j.setFont(new Font("ËÎÌå", Font.BOLD, 20));
-		t.setFont(new Font("ËÎÌå", Font.BOLD, 20));
-		t1.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		t2.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		t3.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		j1.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		j2.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		j3.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		b1.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		b2.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		b3.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		b4.setFont(new Font("ËÎÌå", Font.BOLD, 25));
-		b5.setFont(new Font("ËÎÌå", Font.BOLD, 25));
+		j.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 20));
+		t.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 20));
+		t1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		t2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		t3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		j1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		j2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		j3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		b1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		b2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		b3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		b4.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
+		b5.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 25));
 		b2.setEnabled(false);
 		b4.setEnabled(false);
 		b5.setEnabled(false);
@@ -222,10 +229,10 @@ public class pgCennter {
 		p1.add(b5);
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String ini = "²éÑ¯½á¹û";
+				String ini = "ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½";
 				String a = "";
-				for (Flight f : manageFlight.flights) {
-					if (f.FlightID.equals(t1.getText()) && -1 != f.departureDate.indexOf(t2.getText())) {
+				for (FlightInfo f : FlightController.flights) {
+					if (f.getFlightID().equals(t1.getText()) && -1 != f.getDepartureDate().indexOf(t2.getText())) {
 						a = a + tools.showFlight(null, f);
 						b2.setEnabled(true);
 						t.setText(ini + "\n" + a);
@@ -233,7 +240,7 @@ public class pgCennter {
 					}
 				}
 				if (a.equals("")) {
-					t.setText(ini + "\nº½°àÎ´·¢²¼»ò²»´æÔÚ");
+					t.setText(ini + "\nï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ò²»´ï¿½ï¿½ï¿½");
 					b2.setEnabled(false);
 				}
 			}
@@ -250,7 +257,7 @@ public class pgCennter {
 				if (orderInfo == null) {
 					b4.setEnabled(false);
 					b5.setEnabled(false);
-					JOptionPane.showMessageDialog(null, "¶©µ¥ºÅ²»´æÔÚ");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½ï¿½ï¿½ï¿½");
 				} else {
 					b4.setEnabled(true);
 					b5.setEnabled(true);

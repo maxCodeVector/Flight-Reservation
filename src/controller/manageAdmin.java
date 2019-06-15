@@ -1,5 +1,7 @@
-package plane;
+package controller;
 
+import bean.Admin;
+import frames.MainFrame;
 import util.Tool;
 
 import java.awt.Font;
@@ -66,7 +68,7 @@ public class manageAdmin {
 		}
 		switch (lg) {
 		case 1:
-			Main.adminF(admin.get(index));
+			MainFrame.adminF(admin.get(index));
 			break;
 		case 2:
 			JOptionPane.showMessageDialog(null, "�������!!");

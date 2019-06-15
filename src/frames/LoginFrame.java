@@ -1,10 +1,12 @@
-package plane;
+package frames;
+
+import controller.*;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class Logon {
+public class LoginFrame {
 
 	private static void logon() {
 		JFrame my = new JFrame();
@@ -48,8 +50,8 @@ public class Logon {
 		con.add(p3);
 		b1.addActionListener(e -> manageAdmin.logon(t1.getText(), new String(t2.getPassword())));
 		b2.addActionListener(e -> managePassenger.logon(t1.getText(), new String(t2.getPassword())));
-		b3.addActionListener(e -> Main.passF(null));
-		b4.addActionListener(e -> managePassenger.zhuce());
+		b3.addActionListener(e -> MainFrame.passF(null));
+		b4.addActionListener(e -> registerFrame.register());
 		my.setResizable(false);
 		my.setTitle("logon...");
 		my.setVisible(true);
@@ -57,14 +59,14 @@ public class Logon {
 		my.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
-	public static void Sart() {
+	public static void Start() {
 		managePassenger.initial();
 		manageFlight.initial();
 		manageOrder.initial();
-		Flight.flush();
+		FlightController.flush();
 		UIManager.put("OptionPane.messageFont", new Font("����", Font.BOLD, 30));
 		UIManager.put("OptionPane.buttonFont", new Font("����", Font.BOLD, 30));
-		Logon.logon();
+		LoginFrame.logon();
 	}
 
 }

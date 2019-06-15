@@ -1,6 +1,6 @@
 package util;
 
-import plane.DataAdapter;
+import controller.DataAdapter;
 
 public class FileDataLoader implements DataAdapter{
     private String sourcePath;
@@ -16,7 +16,7 @@ public class FileDataLoader implements DataAdapter{
         }
     }
 
-    public static DataAdapter getInstance(){
+    static DataAdapter getInstance(){
         if(inst==null)
             inst = new FileDataLoader();
         return inst;
@@ -30,7 +30,7 @@ public class FileDataLoader implements DataAdapter{
 
     @Override
     public String getFlightPath() {
-        return sourcePath+"/Flight.dat";
+        return sourcePath+"/FlightController.dat";
     }
 
     @Override
@@ -39,7 +39,7 @@ public class FileDataLoader implements DataAdapter{
     }
 
     @Override
-    public String getPackagerPath() {
+    public String getPassagerPath() {
         return sourcePath+"/Passenger.dat";
     }
 

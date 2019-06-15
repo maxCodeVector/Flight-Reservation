@@ -1,13 +1,19 @@
-package plane;
+package frames;
+
+import bean.FlightInfo;
+import bean.Passenger;
+import controller.FlightController;
+import controller.manageOrder;
+import controller.managePassenger;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 //管理员超级查询的窗口
-public class superQuery {
+public class superQueryFrame {
 
-	public superQuery() {
+	public superQueryFrame() {
 		JFrame my = new JFrame("超级查询");
 		Container con = my.getContentPane();
 		my.setLayout(new GridBagLayout());
@@ -46,9 +52,9 @@ public class superQuery {
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String orderInfo = "";
-				for (Flight f : manageFlight.flights) {
-					if (f.FlightID.equals(t1.getText()) && -1 != f.departureDate.indexOf(t2.getText())) {
-						orderInfo = Flight.superQF(f);
+				for (FlightInfo f : FlightController.flights) {
+					if (f.getFlightID().equals(t1.getText()) && -1 != f.getDepartureDate().indexOf(t2.getText())) {
+						orderInfo = FlightController.superQF(f);
 						j.setText(orderInfo);
 						break;
 					}
@@ -61,7 +67,7 @@ public class superQuery {
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String orderInfo = "";
-				for (Passenger pg : managePassenger.array) {
+				for (Passenger pg : managePassenger.passengers) {
 					if (pg.getPassengerId().equals(t3.getText()) || pg.getTeleNum().equals(t3.getText())
 							|| pg.getUserName().equals(t3.getText()) || pg.getIdentityId().equals(t3.getText())
 							|| pg.getRealName().equals(t3.getText())) {

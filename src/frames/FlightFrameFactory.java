@@ -1,17 +1,22 @@
-package plane;
+package frames;
+
+import bean.Admin;
+import bean.FlightInfo;
+import controller.manageFlight;
+import util.tools;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- * CLFlight��(Creat ,Look)�������˹���Ա��������Ͳ鿴����Ĵ���
+ * FlightFrameFactory��(Creat ,Look)
  * @author hya
  */
-public class CLFlight {
+public class FlightFrameFactory {
 
 	// ������Ӻ��ര��
-	public static void creatF() {
+	public static void creatBaseFlightFrame() {
 		JFrame my = new JFrame("����Ա��������");
 		Container con = my.getContentPane();
 		my.setLayout(new GridBagLayout());
@@ -95,12 +100,12 @@ public class CLFlight {
 	}
 
 	// ������ѯ���ര��
-	public static void lookF(Admin ad) {
+	public static void queryFlightsFrame(Admin ad, final ArrayList<FlightInfo> flights) {
 		JFrame my = new JFrame("��ѯ����");
 		Container con = my.getContentPane();
 		my.setLayout(new GridLayout(3, 1, 5, 5));
 		String a = "����״̬   �����  �� ��  �� �� ���ʱ�� ����ʱ��  ��������  �۸� ����\n";
-		for (Flight f : manageFlight.flights) {
+		for (FlightInfo f : flights) {
 			a = a + tools.showFlight(ad, f);
 		}
 		JTextArea j = new JTextArea(a);
@@ -153,9 +158,10 @@ public class CLFlight {
 		b1.addActionListener(e-> {
 				String ini = "��ѯ���";
 				String ab = "";
-				for (Flight f : manageFlight.flights) {
-					if ((-1 != f.startCity.indexOf(t1.getText())) && (-1 != f.arrivalCity.indexOf(t2.getText()))
-							&& (-1 != f.departureDate.indexOf(t3.getText()))) {
+				for (FlightInfo f : flights) {
+					if ((-1 != f.getStartCity().indexOf(t1.getText()))
+							&& (-1 != f.getArrivalCity().indexOf(t2.getText()))
+							&& (-1 != f.getDepartureDate().indexOf(t3.getText()))) {
 						ab += tools.showFlight(ad, f);
 					}
 				}
@@ -165,24 +171,22 @@ public class CLFlight {
 					t.setText(ini + "\n" + ab);
 				}
 			});
-		b2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String ini = "��ѯ���";
-				String a = "";
-				for (Flight f : manageFlight.flights) {
-					if (-1 != f.FlightID.indexOf(t4.getText())) {
-						a = a + tools.showFlight(ad, f);
-					}
+		b2.addActionListener(e -> {
+			String ini = "��ѯ���";
+			String a1 = "";
+			for (FlightInfo f : flights) {
+				if (-1 != f.getFlightID().indexOf(t4.getText())) {
+					a1 = a1 + tools.showFlight(ad, f);
 				}
-				if (a.equals("")) {
-					t.setText(ini + "\n�鲻���ú�����Ϣ��");
-				} else {
-					t.setText(ini + "\n" + a);
-				}
-
 			}
+			if (a1.equals("")) {
+				t.setText(ini + "\n�鲻���ú�����Ϣ��");
+			} else {
+				t.setText(ini + "\n" + a1);
+			}
+
 		});
-		b3.addActionListener(e -> new updeleFlight());
+		b3.addActionListener(e -> new updeleFlightFrame());
 		b4.addActionListener(e->my.setVisible(false));
 		con.add(sp1);
 		con.add(sp2);

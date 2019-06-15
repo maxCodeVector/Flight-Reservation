@@ -1,4 +1,4 @@
-package plane;
+package bean;
 
 import java.util.ArrayList;
 

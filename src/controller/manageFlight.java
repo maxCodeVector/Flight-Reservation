@@ -1,19 +1,16 @@
-package plane;
-/**
- * Flight �Ĺ����࣬�����˺���Ӧ�еĹ���
- * ������Ӻ��࣬�޸ĺ��ࡣ
- */
+package controller;
 
+
+import bean.FlightInfo;
+import bean.State;
+import util.tools;
 import util.Tool;
 
 import java.io.*;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 public class manageFlight {
-	// �������������flights
-	static ArrayList<Flight> flights = new ArrayList<>();
 
 	// ������Ӻ��๦��
 	public static boolean creatFlight(String a1, String a2, String a3, String a4, String a5, String a6, String a7,
@@ -24,25 +21,27 @@ public class manageFlight {
 			fw = new FileWriter(Tool.getDataAdpater().getFlightPath(),true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			if (j) {
-				Flight flight = new Flight(a1, a2, a3, a4, a5, a6, a7, a8, State.UNPUBLISHED.getState(), 0);
-				flights.add(flight);
-				int a = flights.size() - 1;
-				bw.write(flights.get(a).FlightID + "%");
-				bw.write(flights.get(a).startCity + "?");
-				bw.write(flights.get(a).arrivalCity + "@");
-				bw.write(flights.get(a).startTime + "*");
-				bw.write(flights.get(a).arrivalTime + "#");
-				bw.write(flights.get(a).departureDate + "^");
-				bw.write(flights.get(a).price + "$");
-				bw.write(flights.get(a).seatCapacity + "!");
-				bw.write(flights.get(a).flightStatus + "/");
-				bw.write(flights.get(a).currentPassengers + ";");
+				FlightInfo flight = new FlightInfo(a1, a2, a3, a4, a5, a6, a7, a8, State.UNPUBLISHED, 0);
+				FlightController.flights.add(flight);
+				int a = FlightController.flights.size() - 1;
+				bw.write(FlightController.flights.get(a).getFlightID() + "%");
+				bw.write(FlightController.flights.get(a).getStartCity() + "?");
+				bw.write(FlightController.flights.get(a).getArrivalCity() + "@");
+				bw.write(FlightController.flights.get(a).getStartTime() + "*");
+				bw.write(FlightController.flights.get(a).getArrivalTime() + "#");
+				bw.write(FlightController.flights.get(a).getDepartureDate() + "^");
+				bw.write(FlightController.flights.get(a).getPrice() + "$");
+				bw.write(FlightController.flights.get(a).getSeatCapacity() + "!");
+				bw.write(FlightController.flights.get(a).getFlightStatus() + "/");
+				bw.write(FlightController.flights.get(a).getCurrentPassengers() + ";");
 				bw.newLine();
 				bw.close();
 				fw.close();
-				String temp = String.format("��ӳɹ�\n%-7s%-3S%-3S%-6s%-6s%-10s\n", flight.FlightID, flight.startCity,
-						flight.arrivalCity, flight.startTime, flight.arrivalTime, flight.departureDate, flight.price,
-						flight.seatCapacity);
+				String temp = String.format("��ӳɹ�\n%-7s%-3S%-3S%-6s%-6s%-10s\n",
+						flight.getFlightID(),
+						flight.getStartCity(), flight.getArrivalCity(),
+						flight.getStartTime(), flight.getArrivalTime(),
+						flight.getDepartureDate(), flight.getPrice(), flight.getSeatCapacity());
 				JOptionPane.showMessageDialog(null, temp);
 			}
 		} catch (IOException e) {
@@ -68,10 +67,12 @@ public class manageFlight {
 				String s6 = s.substring(s.indexOf("#") + 1, s.indexOf("^"));
 				String s7 = s.substring(s.indexOf("^") + 1, s.indexOf("$"));
 				String s8 = s.substring(s.indexOf("$") + 1, s.indexOf("!"));
+
 				String s9 = s.substring(s.indexOf("!") + 1, s.indexOf("/"));
+				State s99 = State.valueOf(s9);
 				int s10 = Integer.parseInt(s.substring(s.indexOf("/") + 1, s.indexOf(";")));
-				Flight f = new Flight(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10);
-				flights.add(f);
+				FlightInfo f = new FlightInfo(s1, s2, s3, s4, s5, s6, s7, s8, s99, s10);
+				FlightController.flights.add(f);
 			}
 			input1.close();
 			fw.close();
@@ -89,17 +90,17 @@ public class manageFlight {
 			fw.close();
 			fw = new FileWriter(Tool.getDataAdpater().getFlightPath(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			for (int i = 0; i < flights.size(); i++) {
-				bw.write(flights.get(i).FlightID + "%");
-				bw.write(flights.get(i).startCity + "?");
-				bw.write(flights.get(i).arrivalCity + "@");
-				bw.write(flights.get(i).startTime + "*");
-				bw.write(flights.get(i).arrivalTime + "#");
-				bw.write(flights.get(i).departureDate + "^");
-				bw.write(flights.get(i).price + "$");
-				bw.write(flights.get(i).seatCapacity + "!");
-				bw.write(flights.get(i).flightStatus + "/");
-				bw.write(flights.get(i).currentPassengers + ";");
+			for (int i = 0; i < FlightController.flights.size(); i++) {
+				bw.write(FlightController.flights.get(i).getFlightID() + "%");
+				bw.write(FlightController.flights.get(i).getStartCity() + "?");
+				bw.write(FlightController.flights.get(i).getArrivalCity() + "@");
+				bw.write(FlightController.flights.get(i).getStartTime() + "*");
+				bw.write(FlightController.flights.get(i).getArrivalTime() + "#");
+				bw.write(FlightController.flights.get(i).getDepartureDate() + "^");
+				bw.write(FlightController.flights.get(i).getPrice() + "$");
+				bw.write(FlightController.flights.get(i).getSeatCapacity() + "!");
+				bw.write(FlightController.flights.get(i).getFlightStatus() + "/");
+				bw.write(FlightController.flights.get(i).getCurrentPassengers() + ";");
 				bw.newLine();
 			}
 			bw.close();

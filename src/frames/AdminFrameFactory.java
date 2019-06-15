@@ -1,4 +1,7 @@
-package plane;
+package frames;
+
+import bean.Admin;
+import controller.manageAdmin;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,9 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 //管理员对自己信息的更新和其他操作的窗口(Creat, Manage)
-public class CMAdmin {
+public class AdminFrameFactory {
 	// 创建添加管理员窗口
-	public static void creatA() {
+	public static void creatAdminFrame() {
 		JFrame my = new JFrame();
 		Container con = my.getContentPane();
 		con.setLayout(new GridLayout(5, 2, 100, 40));
@@ -58,7 +61,7 @@ public class CMAdmin {
 	}
 
 	// 创建修改管理员资料窗口
-	public static void userManage(Admin ad) {
+	public static void ManageAdminFrame(Admin ad) {
 		JFrame my = new JFrame();
 		Container con = my.getContentPane();
 		con.setLayout(new GridLayout(6, 2, 100, 40));

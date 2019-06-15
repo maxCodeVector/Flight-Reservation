@@ -1,16 +1,16 @@
-package plane;
+package bean;
 
-public class Passenger {// ³Ë¿ÍµÄÊôĞÔ
+public class Passenger {// ï¿½Ë¿Íµï¿½ï¿½ï¿½ï¿½ï¿½
 
-	private String passengerId;//³Ë¿Í±àºÅ
+	private String passengerId;//ï¿½Ë¿Í±ï¿½ï¿½
 	private String userName;
 	private String realName;
 	private String sex;
-	private String teleNum;//ÊÖ»úºÅÂë
+	private String teleNum;//ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½
 	private String identityId;
 	private String password;
 
-	// ÉèÖÃ¹¹ÔìÆ÷
+	// ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	public Passenger() {
 	}
 
@@ -25,7 +25,7 @@ public class Passenger {// ³Ë¿ÍµÄÊôĞÔ
 		this.sex = sexNum % 2 == 0?"FEMALE":"MALE";
 	}
 
-	// ÉèÖÃsetºÍget·½·¨
+	// ï¿½ï¿½ï¿½ï¿½setï¿½ï¿½getï¿½ï¿½ï¿½ï¿½
 	public String getPassengerId() {
 		return passengerId;
 	}

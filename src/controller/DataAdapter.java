@@ -1,11 +1,11 @@
-package plane;
+package controller;
 
 public interface DataAdapter {
 
     String getAdminPath();
     String getFlightPath();
     String getOrderPath();
-    String getPackagerPath();
+    String getPassagerPath();
 
 
     String getPlaneImgPath();

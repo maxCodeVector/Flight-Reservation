@@ -1,4 +1,10 @@
-package plane;
+package util;
+
+import bean.*;
+import controller.FlightController;
+import bean.State;
+import controller.manageOrder;
+import frames.pgCennterFrame;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,81 +13,68 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.*;
 
-//¶Ôº½°àÊ±¼äË³ÐòÅÅÐòµÄ±È½ÏÆ÷
-class flightComaprtor implements Comparator<Object> {
-	public int compare(Object obj1, Object obj2) {
-		Flight f1 = (Flight) obj1;
-		Flight f2 = (Flight) obj2;
-		return tools.compareTime(f1.getExactTime(), f2.getExactTime()) ? 0 : -1;
-	}
-}
-
-// ¶Ô¶©µ¥²úÉúÊ±¼äË³ÐòÅÅÐòµÄ±È½ÏÆ÷
-class orderComaprtor implements Comparator<Object> {
-	public int compare(Object obj1, Object obj2) {
-		Order o1 = (Order) obj1;
-		Order o2 = (Order) obj2;
-		String t1 = o1.getCreateDate() + " 00:" + o1.seatNum.indexOf(1);
-		String t2 = o2.getCreateDate() + " 00:" + o2.seatNum.indexOf(1);
-		return tools.compareTime(t1, t2) ? 0 : -1;
-	}
-}
-
-enum State {
-	UNPUBLISHED("UNPUBLISHED"), AVAILABLE("AVAILABLE"), FULL("FULL"), TERMINATE("TERMINATE"), UNPAID("UNPAID"), PAID(
-			"PAID"), CANCEL("CANCEL");
-	private String state;
-
-	private State(String state) {
-		this.state = state;
-	}
-
-	public String getState() {
-		return this.state;
-	}
-}
-
 public class tools {
+	public static FlightComaprtor flightComp = new FlightComaprtor();
+	public static OrderComaprtor orderComp = new OrderComaprtor();
 
-	// »ñµÃÏµÍ³Ê±¼äºÍÈÕÆÚ
+	static class FlightComaprtor implements Comparator<Object> {
+		public int compare(Object obj1, Object obj2) {
+			FlightInfo f1 = (FlightInfo) obj1;
+			FlightInfo f2 = (FlightInfo) obj2;
+			return tools.compareTime(f1.getExactTime(), f2.getExactTime()) ? 0 : -1;
+		}
+	}
+
+	static class OrderComaprtor implements Comparator<Object> {
+		public int compare(Object obj1, Object obj2) {
+			Order o1 = (Order) obj1;
+			Order o2 = (Order) obj2;
+			String t1 = o1.getCreateDate() + " 00:" + o1.getSeatNum().indexOf(1);
+			String t2 = o2.getCreateDate() + " 00:" + o1.getSeatNum().indexOf(1);
+			return tools.compareTime(t1, t2) ? 0 : -1;
+		}
+	}
+
+
+	// ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Date date = new Date();
 	String time = String.format("%tF,%tT", date, date);
 
-	// »ñÈ¡µ±Ç°Ê±¼äÖ®Ç°»òÖ®ºó¼¸ Ð¡Ê±hour
+	// ï¿½ï¿½È¡ï¿½ï¿½Ç°Ê±ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ö®ï¿½ï¿½ Ð¡Ê±hour
 	public static String getTimeByHour(int hour) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + hour);
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(calendar.getTime());
 	}
 
-	// »ñÈ¡µ±Ç°Ê±¼äÖ®Ç°»òÖ®ºó¼¸·ÖÖÓ minute
+	// ï¿½ï¿½È¡ï¿½ï¿½Ç°Ê±ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ö®ï¿½ó¼¸·ï¿½ï¿½ï¿½ minute
 	public static String getTimeByMinute(int minute) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MINUTE, minute);
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime());
 	}
 
-	// ²éÑ¯¶©µ¥Ê±Ìø³öÑéÖ¤µÇÂ¼ÃÜÂëµÄ¶Ô»°¿ò
+	// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ä¶Ô»ï¿½ï¿½ï¿½
 	public static void queryOrderDialog(Passenger pg) {
 		JDialog my = new JDialog();
 		Container con = my.getContentPane();
 		con.setLayout(new GridLayout(2, 2, 50, 50));
-		JLabel j1 = new JLabel("ÑéÖ¤µÇÂ¼ÃÜÂë", SwingConstants.CENTER);
+		JLabel j1 = new JLabel("ï¿½ï¿½Ö¤ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
 		JPasswordField ps = new JPasswordField();
-		JButton b1 = new JButton("È·¶¨");
-		JButton b2 = new JButton("È¡Ïû");
-		j1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		ps.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
+		JButton b1 = new JButton("È·ï¿½ï¿½");
+		JButton b2 = new JButton("È¡ï¿½ï¿½");
+		j1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		ps.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (new String(ps.getPassword()).equals(pg.getPassword())) {
-					Flight.flush();
-					pgCennter.myOr(pg);
+					FlightController.flush();
+					pgCennterFrame.myOr(pg);
 					my.setVisible(false);
 				} else
-					JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
 		});
 		b2.addActionListener(new ActionListener() {
@@ -97,27 +90,27 @@ public class tools {
 		my.setVisible(true);
 	}
 
-	// Ö§¸¶¶©µ¥Ê±Ìø³öÑéÖ¤Ö§¸¶ÃÜÂëµÄ¶Ô»°¿ò
+	// Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶Ô»ï¿½ï¿½ï¿½
 	public static void paidDialog(String orNum) {
 		JDialog my = new JDialog();
 		Container con = my.getContentPane();
 		con.setLayout(new GridLayout(2, 2, 50, 50));
-		JLabel j1 = new JLabel("ÊäÈëÖ§¸¶ÃÜÂë", SwingConstants.CENTER);
+		JLabel j1 = new JLabel("ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
 		JPasswordField ps = new JPasswordField();
-		JButton b1 = new JButton("È·¶¨Ö§¸¶");
-		JButton b2 = new JButton("ÔÝ²»Ö§¸¶");
-		j1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		ps.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
+		JButton b1 = new JButton("È·ï¿½ï¿½Ö§ï¿½ï¿½");
+		JButton b2 = new JButton("ï¿½Ý²ï¿½Ö§ï¿½ï¿½");
+		j1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		ps.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (new String(ps.getPassword()).equals("Y")) {
 					manageOrder.modOrder(orNum, State.PAID);
-					JOptionPane.showMessageDialog(null, "Ö§¸¶³É¹¦");
+					JOptionPane.showMessageDialog(null, "Ö§ï¿½ï¿½ï¿½É¹ï¿½");
 					my.setVisible(false);
 				} else
-					JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
 		});
 		b2.addActionListener(new ActionListener() {
@@ -133,27 +126,27 @@ public class tools {
 		my.setVisible(true);
 	}
 
-	// È¡Ïû¶©µ¥Ê±Ìø³öÑéÖ¤Ö§¸¶ÃÜÂëµÄ¶Ô»°¿ò
+	// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶Ô»ï¿½ï¿½ï¿½
 	public static void unsubscribeDialog(String orNum) {
 		JDialog my = new JDialog();
 		Container con = my.getContentPane();
 		con.setLayout(new GridLayout(2, 2, 50, 50));
-		JLabel j1 = new JLabel("ÊäÈëÖ§¸¶ÃÜÂë", SwingConstants.CENTER);
+		JLabel j1 = new JLabel("ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
 		JPasswordField ps = new JPasswordField();
-		JButton b1 = new JButton("È·¶¨È¡Ïû");
-		JButton b2 = new JButton("ÔÝ²»È¡Ïû");
-		j1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		ps.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
+		JButton b1 = new JButton("È·ï¿½ï¿½È¡ï¿½ï¿½");
+		JButton b2 = new JButton("ï¿½Ý²ï¿½È¡ï¿½ï¿½");
+		j1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		ps.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (new String(ps.getPassword()).equals("Y")) {
 					manageOrder.modOrder(orNum, State.CANCEL);
-					JOptionPane.showMessageDialog(null, "ÍË¿îÒÑ·µ»¹");
+					JOptionPane.showMessageDialog(null, "ï¿½Ë¿ï¿½ï¿½Ñ·ï¿½ï¿½ï¿½");
 					my.setVisible(false);
 				} else
-					JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
 		});
 		b2.addActionListener(new ActionListener() {
@@ -169,7 +162,7 @@ public class tools {
 		my.setVisible(true);
 	}
 
-	// ±È½ÏÊ±¼ätÊÇ·ñÍíÓÚÏµÍ³Ê±¼ähourÐ¡Ê±ÒÔÉÏ,Èç¹ûÊÇ£¬·µ»Øtrue
+	// ï¿½È½ï¿½Ê±ï¿½ï¿½tï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½hourÐ¡Ê±ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½true
 	public static boolean compareSystemTime(String t, int hour) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		boolean a = false;
@@ -183,7 +176,7 @@ public class tools {
 		return a;
 	}
 
-	// ±È½ÏÁ½¸öÊ±¼äË³Ðò,Èç¹ût1ÍíÓÚ»òµÈÓÚt2,·µ»Øtrue
+	// ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ë³ï¿½ï¿½,ï¿½ï¿½ï¿½t1ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½t2,ï¿½ï¿½ï¿½ï¿½true
 	public static boolean compareTime(String t1, String t2) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		boolean a = false;
@@ -197,13 +190,13 @@ public class tools {
 		return a;
 	}
 
-	// ÉèÖÃÌí¼ÓÍ¼Æ¬µÄ·½·¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Ä·ï¿½ï¿½ï¿½
 	public static JPanel Samp(JPanel p, String path) {
 		ImageIcon background = new ImageIcon(path);
 		JLabel l = new JLabel(background);
-		l.setBounds(0, 0, p.getWidth(), p.getHeight()); // °Ñ±êÇ©µÄ´óÐ¡Î»ÖÃÉèÖÃÎªÍ¼Æ¬¸ÕºÃÌî³äÕû¸öÃæ°å
+		l.setBounds(0, 0, p.getWidth(), p.getHeight()); // ï¿½Ñ±ï¿½Ç©ï¿½Ä´ï¿½Ð¡Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÍ¼Æ¬ï¿½Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		p.add(l);
-		return p;// ·µ»ØÒ»¸ö´øÓÐÖ¸¶¨Í¼Æ¬µÄJPanelÃæ°å
+		return p;// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Í¼Æ¬ï¿½ï¿½JPanelï¿½ï¿½ï¿½
 	}
 
 	public static boolean checkTime(String time) {
@@ -233,14 +226,20 @@ public class tools {
 		}
 	}
 
-	public static String showFlight(Admin ad, Flight f) {
+	public static String showFlight(Admin ad, FlightInfo f) {
 		String a = "";
 		if (ad != null) {
-			a = a + (String.format("%-12s %-7s%-3S%-3S%-6s%-6s%-11s%-5s%-3s\n", f.flightStatus, f.FlightID, f.startCity,
-					f.arrivalCity, f.startTime, f.arrivalTime, f.departureDate, f.price, f.seatCapacity));
-		} else if (!f.flightStatus.equals(State.UNPUBLISHED.getState())) {
-			a = a + (String.format("%-12s %-7s%-3S%-3S%-6s%-6s%-11s%-5s%-3s\n", f.flightStatus, f.FlightID, f.startCity,
-					f.arrivalCity, f.startTime, f.arrivalTime, f.departureDate, f.price, f.seatCapacity));
+			a = a + (String.format("%-12s %-7s%-3S%-3S%-6s%-6s%-11s%-5s%-3s\n",
+					f.getFlightStatus(), f.getFlightID(),
+					f.getStartCity(), f.getArrivalCity(),
+					f.getStartTime(), f.getArrivalTime(),
+					f.getDepartureDate(), f.getPrice(), f.getSeatCapacity()));
+		} else if (f.getFlightStatus()!=State.UNPUBLISHED) {
+			a = a + (String.format("%-12s %-7s%-3S%-3S%-6s%-6s%-11s%-5s%-3s\n",
+					f.getFlightStatus(), f.getFlightID(),
+					f.getStartCity(), f.getArrivalCity(),
+					f.getStartTime(), f.getArrivalTime(),
+					f.getDepartureDate(), f.getPrice(), f.getSeatCapacity()));
 		}
 		return a;
 	}

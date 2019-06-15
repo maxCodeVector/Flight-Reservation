@@ -1,6 +1,10 @@
-package plane;
+package frames;
 
+import bean.Admin;
+import bean.Passenger;
+import controller.FlightController;
 import util.Tool;
+import util.tools;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +14,7 @@ import javax.swing.*;
  * 设置了管理员和乘客的主界面
  */
 
-public class Main {
+public class MainFrame {
 
 	// 管理员主界面
 	public static void adminF(Admin ad) {
@@ -36,29 +40,29 @@ public class Main {
 		b6.setFont(new Font("宋体", Font.BOLD, 20));
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CLFlight.creatF();
+				FlightFrameFactory.creatBaseFlightFrame();
 			}
 		});
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Flight.flush();
-				CLFlight.lookF(ad);
+				FlightController.flush();
+				FlightFrameFactory.queryFlightsFrame(ad, FlightController.flights);
 			}
 		});
 		b3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					CMAdmin.userManage(ad);
+					AdminFrameFactory.ManageAdminFrame(ad);
 			}
 		});
 		b4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CMAdmin.creatA();
+				AdminFrameFactory.creatAdminFrame();
 			}
 		});
 		b5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Flight.flush();
-				new superQuery();
+				FlightController.flush();
+				new superQueryFrame();
 			}
 		});
 		b6.addActionListener(new ActionListener() {
@@ -112,13 +116,13 @@ public class Main {
 		}
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pgCennter.myInfo(pg);
+				pgCennterFrame.myInfo(pg);
 			}
 		});
 		b2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Flight.flush();
-				CLFlight.lookF(null);
+				FlightController.flush();
+				FlightFrameFactory.queryFlightsFrame(null, FlightController.flights);
 			}
 		});
 		b3.addActionListener(new ActionListener() {
