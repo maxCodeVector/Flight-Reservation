@@ -1,5 +1,7 @@
 package plane;
 
+import util.Tool;
+
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,17 +22,17 @@ public class manageAdmin {
 			if (pw.equals(pw2)) {
 				j = 1;
 			} else
-				JOptionPane.showMessageDialog(null, "ÃÜÂë²»Ò»ÖÂ");
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ë²»Ò»ï¿½ï¿½");
 		} else
-			JOptionPane.showMessageDialog(null, "ÇëÈ·ÈÏÌîÐ´È«²¿ÐÅÏ¢");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Ð´È«ï¿½ï¿½ï¿½ï¿½Ï¢");
 		return j == 1;
 	}
 
-	// ½«¹ÜÀíÔ±Ãûµ¥´ÓÎÄ¼þµ¼ÈëÊý×éadminÖÐ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½adminï¿½ï¿½
 	public static void initial() {
 		FileReader fw;
 		try {
-			fw = new FileReader("Admin.dat");
+			fw = new FileReader(Tool.getDataAdpater().getAdminPath());
 			BufferedReader input1 = new BufferedReader(fw);
 			String s = null;
 			while ((s = input1.readLine()) != null) {
@@ -48,7 +50,7 @@ public class manageAdmin {
 		}
 	}
 
-	// ÅÐ¶ÏÊÇ·ñµÇÂ¼³É¹¦
+	// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Â¼ï¿½É¹ï¿½
 	public static void logon(String a, String b) {
 		int lg = 0, index = 0;
 		initial();
@@ -67,18 +69,18 @@ public class manageAdmin {
 			Main.adminF(admin.get(index));
 			break;
 		case 2:
-			JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó!!");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!");
 			break;
 		default:
-			JOptionPane.showMessageDialog(null, "ÕËºÅ²»´æÔÚ");
+			JOptionPane.showMessageDialog(null, "ï¿½ËºÅ²ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 
-	// ÉèÖÃÌí¼Ó¹ÜÀíÔ±·½·¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 	public static void addAdmin(String user, String realName, String pw) {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Admin.dat", true);
+			fw = new FileWriter("resource/Admin.dat", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			Admin ad = new Admin(user, pw, realName);
 			admin.add(ad);
@@ -89,23 +91,23 @@ public class manageAdmin {
 			bw.newLine();
 			bw.close();
 			fw.close();
-			String s = String.format("Ìí¼Ó³É¹¦\nÓÃ»§Ãû:  %s\nÕæÊµÐÕÃû:%s\n", ad.getUserName(), ad.getRealName());
-			UIManager.put("OptionPane.messageFont", new Font("ËÎÌå", Font.BOLD, 30));
-			UIManager.put("OptionPane.buttonFont", new Font("ËÎÌå", Font.BOLD, 30));
+			String s = String.format("ï¿½ï¿½Ó³É¹ï¿½\nï¿½Ã»ï¿½ï¿½ï¿½:  %s\nï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½:%s\n", ad.getUserName(), ad.getRealName());
+			UIManager.put("OptionPane.messageFont", new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+			UIManager.put("OptionPane.buttonFont", new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
 			JOptionPane.showMessageDialog(null, s);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// ±£´æ¸üÐÂ¹ÜÀíÔ±Êý¾Ý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 	public static void saveAdmin() {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Admin.dat");
+			fw = new FileWriter("resource/Admin.dat");
 			fw.write("");
 			fw.close();
-			fw = new FileWriter("Admin.dat", true);
+			fw = new FileWriter("resource/Admin.dat", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			System.out.println(admin.size());
 			for (int i = 0; i < admin.size(); i++) {

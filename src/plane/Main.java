@@ -1,5 +1,7 @@
 package plane;
 
+import util.Tool;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -71,7 +73,7 @@ public class Main {
 		p2.add(b4);
 		p2.add(b5);
 		p2.add(b6);
-		con.add(tools.Samp(p1, "·É»ú.jpg"));
+		con.add(tools.Samp(p1, Tool.getDataAdpater().getPlaneImgPath()));
 		con.add(p2);
 		my.setBounds(400, 50, 900, 800);
 		my.setResizable(false);
@@ -138,7 +140,7 @@ public class Main {
 		p2.add(new JLabel());
 		p2.add(b4);
 		p2.add(new JLabel());
-		con.add(tools.Samp(p1, "sky.jpg"));
+		con.add(tools.Samp(p1, Tool.getDataAdpater().getSkyImgPath()));
 		con.add(p2);
 		my.setBounds(400, 200, 900, 700);
 		my.setResizable(false);

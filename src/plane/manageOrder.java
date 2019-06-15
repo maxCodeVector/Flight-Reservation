@@ -1,5 +1,7 @@
 package plane;
 
+import util.Tool;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -17,7 +19,7 @@ public class manageOrder {
 	static Date date = new Date();
 	static String createDate = String.format("%tF", date);
 
-	// ordersÊý×éµÄsetºÍget·½·¨
+	// ordersï¿½ï¿½ï¿½ï¿½ï¿½setï¿½ï¿½getï¿½ï¿½ï¿½ï¿½
 	public static ArrayList<Order> getOrders() {
 		return orders;
 	}
@@ -26,14 +28,14 @@ public class manageOrder {
 		manageOrder.orders = orders;
 	}
 
-	// ´æ´¢¶©µ¥
+	// ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½
 	public static void saveOrder() {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Order.data");
+			fw = new FileWriter(Tool.getDataAdpater().getOrderPath());
 			fw.write("");
 			fw.close();
-			fw = new FileWriter("Order.data", true);
+			fw = new FileWriter("resource/Order.dat", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (Order o : orders) {
 				bw.write(o.orderNum + "%");
@@ -53,7 +55,7 @@ public class manageOrder {
 
 	}
 
-	// Ô¤¶©º½°à
+	// Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public static void bookOrder(String fID, String date1, Passenger pg) {
 		for (Flight f : manageFlight.flights) {
 			if (f.FlightID.equals(fID) && -1 != f.departureDate.indexOf(date1)) {
@@ -70,7 +72,7 @@ public class manageOrder {
 					Order o = new Order(orNum, seat, State.UNPAID.getState(), pg, f, createDate);
 					orders.add(o);
 					String orderInfo = String.format(
-							"Ô¤¶©³É¹¦\n¶©µ¥ºÅ:%s ¶©µ¥×´Ì¬£º%s ¼Û¸ñ£º%s ×ùÎ»ºÅ£º%s ´´½¨ÈÕÆÚ£º%s \n  º½°àÐÅÏ¢£º%-7s%-5s%-5s%-6s%-6s%-11s\n",
+							"Ô¤ï¿½ï¿½ï¿½É¹ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:%s ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½%s ï¿½Û¸ï¿½%s ï¿½ï¿½Î»ï¿½Å£ï¿½%s ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½%s \n  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½%-7s%-5s%-5s%-6s%-6s%-11s\n",
 							o.orderNum, o.status, o.flight.price, o.seatNum, o.createDate, o.flight.FlightID,
 							o.flight.startCity, o.flight.arrivalCity, o.flight.startTime, o.flight.arrivalTime,
 							o.flight.departureDate);
@@ -78,7 +80,7 @@ public class manageOrder {
 					manageFlight.saveFlight();
 					JOptionPane.showMessageDialog(null, orderInfo);
 				} else
-					JOptionPane.showMessageDialog(null, "ÎÞ·¨Ô¤¶©¸Ã×´Ì¬µÄº½°à");
+					JOptionPane.showMessageDialog(null, "ï¿½Þ·ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Äºï¿½ï¿½ï¿½");
 				break;
 			}
 		}
@@ -88,7 +90,7 @@ public class manageOrder {
 	public static void initial() {
 		FileReader fw;
 		try {
-			fw = new FileReader("Order.data");
+			fw = new FileReader(Tool.getDataAdpater().getOrderPath());
 			BufferedReader input1 = new BufferedReader(fw);
 			String s = null;
 			while ((s = input1.readLine()) != null) {
@@ -121,13 +123,13 @@ Order order = new Order(orNum, seat, state, pg, f, creDate);
 		}
 	}
 
-	// ³Ë¿Í²éÑ¯¶©µ¥µÄ·½·¨
+	// ï¿½Ë¿Í²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 	public static String lookOrder(String orNum, Passenger pg) {
 		String orderInfo = null;
 		for (Order o : orders) {
 			if (o.orderNum.equals(orNum) && o.passenger.equals(pg)) {
 				orderInfo = String.format(
-						"²éÑ¯½á¹û\n¶©µ¥ºÅ:%s ¶©µ¥×´Ì¬£º%s ¼Û¸ñ£º%s ×ùÎ»ºÅ£º%s ´´½¨ÈÕÆÚ£º%s \n  º½°àÐÅÏ¢£º%-7s%-5s%-5s%-6s%-6s%-11s\n", o.orderNum,
+						"ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:%s ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½%s ï¿½Û¸ï¿½%s ï¿½ï¿½Î»ï¿½Å£ï¿½%s ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½%s \n  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½%-7s%-5s%-5s%-6s%-6s%-11s\n", o.orderNum,
 						o.status, o.flight.price, o.seatNum, o.createDate, o.flight.FlightID, o.flight.startCity,
 						o.flight.arrivalCity, o.flight.startTime, o.flight.arrivalTime, o.flight.departureDate);
 				break;
@@ -136,7 +138,7 @@ Order order = new Order(orNum, seat, state, pg, f, creDate);
 		return orderInfo;
 	}
 
-	// ¹ÜÀíÔ±²éÑ¯¶©µ¥µÄ·½·¨
+	// ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 	public static String lookOrder(Passenger pg) {
 		Collections.sort(orders, new orderComaprtor());
 		String a = pg.getRealName() + "\n";
@@ -145,7 +147,7 @@ Order order = new Order(orNum, seat, state, pg, f, creDate);
 			if (o.passenger.equals(pg)) {
 				counter++;
 				a = a + (String.format(
-						counter + ".¶©µ¥ºÅ:%s ¶©µ¥×´Ì¬£º%s ¼Û¸ñ£º%s ×ùÎ»ºÅ£º%s ´´½¨ÈÕÆÚ£º%s" + "\n  º½°àÐÅÏ¢£º%-7s%-5s%-5s%-6s%-6s%-11s\n\n",
+						counter + ".ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:%s ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½%s ï¿½Û¸ï¿½%s ï¿½ï¿½Î»ï¿½Å£ï¿½%s ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½%s" + "\n  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½%-7s%-5s%-5s%-6s%-6s%-11s\n\n",
 						o.orderNum, o.status, o.flight.price, o.seatNum, o.createDate, o.flight.FlightID,
 						o.flight.startCity, o.flight.arrivalCity, o.flight.startTime, o.flight.arrivalTime,
 						o.flight.departureDate));
@@ -154,7 +156,7 @@ Order order = new Order(orNum, seat, state, pg, f, creDate);
 		return a;
 	}
 
-	// ÐÞ¸Äº½°à×´Ì¬µÄ·½·¨
+	// ï¿½Þ¸Äºï¿½ï¿½ï¿½×´Ì¬ï¿½Ä·ï¿½ï¿½ï¿½
 	public static void modOrder(String orNum, State status) {
 		for (Order o : orders) {
 			if (o.orderNum.equals(orNum))

@@ -2,7 +2,7 @@ import plane.Logon;
 
 public class Start{
 	
-	public static void mian(String[] args) {
+	public static void main(String[] args) {
 		Logon.Sart();
 	}
 	

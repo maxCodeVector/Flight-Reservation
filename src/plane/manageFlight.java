@@ -1,8 +1,10 @@
 package plane;
 /**
- * Flight µÄ¹ÜÀíÀà£¬ÉèÖÃÁËº½°àÓ¦ÓÐµÄ¹¦ÄÜ
- * ±ÈÈçÌí¼Óº½°à£¬ÐÞ¸Äº½°à¡£
+ * Flight ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½à£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ó¦ï¿½ÐµÄ¹ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óºï¿½ï¿½à£¬ï¿½Þ¸Äºï¿½ï¿½à¡£
  */
+
+import util.Tool;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,16 +12,16 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class manageFlight {
-	// ´´½¨º½°àµÄÊý×éflights
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½flights
 	static ArrayList<Flight> flights = new ArrayList<>();
 
-	// ÉèÖÃÌí¼Óº½°à¹¦ÄÜ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óºï¿½ï¿½à¹¦ï¿½ï¿½
 	public static boolean creatFlight(String a1, String a2, String a3, String a4, String a5, String a6, String a7,
 			String a8) {
 		boolean j = checkFlight(a1, a2, a3, a4, a5, a6, a7, a8);
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Flight.dat", true);
+			fw = new FileWriter(Tool.getDataAdpater().getFlightPath(),true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			if (j) {
 				Flight flight = new Flight(a1, a2, a3, a4, a5, a6, a7, a8, State.UNPUBLISHED.getState(), 0);
@@ -38,7 +40,7 @@ public class manageFlight {
 				bw.newLine();
 				bw.close();
 				fw.close();
-				String temp = String.format("Ìí¼Ó³É¹¦\n%-7s%-3S%-3S%-6s%-6s%-10s\n", flight.FlightID, flight.startCity,
+				String temp = String.format("ï¿½ï¿½Ó³É¹ï¿½\n%-7s%-3S%-3S%-6s%-6s%-10s\n", flight.FlightID, flight.startCity,
 						flight.arrivalCity, flight.startTime, flight.arrivalTime, flight.departureDate, flight.price,
 						flight.seatCapacity);
 				JOptionPane.showMessageDialog(null, temp);
@@ -49,11 +51,11 @@ public class manageFlight {
 		return j;
 	}
 
-	// ½«º½°àÊý¾Ý´ÓÎÄ¼þµ¼Èëµ½Êý×éflights
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½flights
 	public static void initial() {
 		FileReader fw;
 		try {
-			fw = new FileReader("Flight.dat");
+			fw = new FileReader(Tool.getDataAdpater().getFlightPath());
 			BufferedReader input1 = new BufferedReader(fw);
 			String s = null;
 			while ((s = input1.readLine()) != null) {
@@ -78,14 +80,14 @@ public class manageFlight {
 		}
 	}
 
-	// ÉèÖÃ¸üÐÂÐÞ¸Äºóº½°à×ÊÁÏµÄ¹¦ÄÜ
+	// ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Þ¸Äºóº½°ï¿½ï¿½ï¿½ï¿½ÏµÄ¹ï¿½ï¿½ï¿½
 	public static void saveFlight() {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Flight.dat");
+			fw = new FileWriter(Tool.getDataAdpater().getFlightPath());
 			fw.write("");
 			fw.close();
-			fw = new FileWriter("Flight.dat", true);
+			fw = new FileWriter(Tool.getDataAdpater().getFlightPath(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (int i = 0; i < flights.size(); i++) {
 				bw.write(flights.get(i).FlightID + "%");
@@ -107,7 +109,7 @@ public class manageFlight {
 		}
 	}
 
-	// ¼ì²éÌîÐ´µÄº½°àÐÅÏ¢ÊÇ·ñ·ûºÏ¸ñÊ½ºÍÊ±¼äÊÇ·ñ·ûºÏÒªÇó
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ç·ï¿½ï¿½ï¿½Ï¸ï¿½Ê½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½
 	public static boolean checkFlight(String a1, String a2, String a3, String a4, String a5, String a6, String a7,
 			String a8) {
 		int j = 0;
@@ -119,15 +121,15 @@ public class manageFlight {
 								&& tools.compareTime(a6 + " " + a5, a6 + " " + a4)) {
 							j = 1;
 						} else
-							JOptionPane.showMessageDialog(null, "È·±£Æð·ÉÊ±¼äÔÚµ±Ç°Ê±¼ä2Ð¡Ê±Ö®ºó£¬µ½´ïÊ±¼äÔÚÆð·ÉÊ±¼äÖ®ºó");
+							JOptionPane.showMessageDialog(null, "È·ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Úµï¿½Ç°Ê±ï¿½ï¿½2Ð¡Ê±Ö®ï¿½ó£¬µï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö®ï¿½ï¿½");
 					} else
-						JOptionPane.showMessageDialog(null, "¼Û¸ñºÍÈÝÁ¿±ØÐëÊÇ¸öÊý×Ö");
+						JOptionPane.showMessageDialog(null, "ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½");
 				} else
-					JOptionPane.showMessageDialog(null, "Ä³¸öÊ±¼ä²»ºÏ·¨");
+					JOptionPane.showMessageDialog(null, "Ä³ï¿½ï¿½Ê±ï¿½ä²»ï¿½Ï·ï¿½");
 			} else
-				JOptionPane.showMessageDialog(null, "³ÇÊÐ¸ñÊ½´íÎó");
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ð¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
 		} else
-			JOptionPane.showMessageDialog(null, "º½°àºÅ¸ñÊ½´íÎó");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½Å¸ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
 		return j == 1 ? true : false;
 	}
 

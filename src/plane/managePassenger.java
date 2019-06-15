@@ -1,5 +1,7 @@
 package plane;
 
+import util.Tool;
+
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -24,14 +26,12 @@ import javax.swing.SwingConstants;
 
 public class managePassenger {
 
-	// ³Ë¿ÍÈ«²¿ÐÅÏ¢µÄpassengerÐÍµÄÊý×éarraylist;
 	static ArrayList<Passenger> array = new ArrayList<>();
 
-	// ½«ÕËºÅÃÜÂëµ¼ÈëÊý×éarrayÖÐ
 	public static void initial() {
 		FileReader fw;
 		try {
-			fw = new FileReader("Passenger.data");
+			fw = new FileReader(Tool.getDataAdpater().getPackagerPath());
 			BufferedReader input1 = new BufferedReader(fw);
 			String s = null;
 			while ((s = input1.readLine()) != null) {
@@ -53,7 +53,6 @@ public class managePassenger {
 		}
 	}
 
-	// ¼ì²é³Ë¿Í×¢²áÐÅÏ¢µÄ¸ñÊ½
 	public static boolean checkPassenger(String user, String name, String teleNum, String identityId, String pw) {
 		int j = 0;
 		if (!user.trim().equals("") && !name.trim().equals("") && !teleNum.trim().equals("")
@@ -62,19 +61,18 @@ public class managePassenger {
 				if (identityId.matches("\\d{17}[a-zA-Z[\\d]]{1}")) {
 					j = 1;
 				} else
-					JOptionPane.showMessageDialog(null, "Éí·ÝÖ¤ºÅÂë¸ñÊ½´íÎó");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
 			} else
-				JOptionPane.showMessageDialog(null, "ÊÖ»úºÅÂë¸ñÊ½´íÎó");
+				JOptionPane.showMessageDialog(null, "ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½");
 		} else
-			JOptionPane.showMessageDialog(null, "ÇëÌîÍêÈ«²¿×ÊÁÏ");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return j == 1 ;
 	}
 
-	// ×¢²á·½·¨
 	public static void zhuce(String user, String name, String teleNum, String identityId, String pw) {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Passenger.data", true);
+			fw = new FileWriter("resource/Passenger.dat", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			String IdentityId = identityId;
 			String TeleNum = teleNum;
@@ -94,21 +92,21 @@ public class managePassenger {
 			bw.newLine();
 			bw.close();
 			fw.close();
-			JOptionPane.showMessageDialog(null, "×¢²á³É¹¦");
+			JOptionPane.showMessageDialog(null, "×¢ï¿½ï¿½É¹ï¿½");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	// ±£´æ¸üÐÂºóµÄ³Ë¿ÍÐÅÏ¢
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âºï¿½Ä³Ë¿ï¿½ï¿½ï¿½Ï¢
 	public static void savePassenger() {
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Passenger.data");
+			fw = new FileWriter("resource/Passenger.dat");
 			fw.write("");
 			fw.close();
-			fw = new FileWriter("Passenger.data", true);
+			fw = new FileWriter("resource/Passenger.dat", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (Passenger pg : array) {
 				bw.write(pg.getUserName() + " % ");
@@ -127,7 +125,7 @@ public class managePassenger {
 		}
 	}
 
-	// ÅÐ¶ÏµÇÂ¼ÊÇ·ñ³É¹¦
+	// ï¿½Ð¶Ïµï¿½Â¼ï¿½Ç·ï¿½É¹ï¿½
 	public static void logon(String a, String b) {
 		int lg = 0, index = 0;
 		for (int i = 0; i < array.size(); i++) {
@@ -145,47 +143,47 @@ public class managePassenger {
 			Main.passF(array.get(index));
 			break;
 		case 2:
-			JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			break;
 		default:
-			JOptionPane.showMessageDialog(null, "ÕËºÅ²»´æÔÚ");
+			JOptionPane.showMessageDialog(null, "ï¿½ËºÅ²ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 
-	// ´´½¨×¢²á´°Ìå
+	// ï¿½ï¿½ï¿½ï¿½×¢ï¿½á´°ï¿½ï¿½
 	public static void zhuce() {
-		JFrame my = new JFrame("³Ë¿Í×¢²á");
+		JFrame my = new JFrame("ï¿½Ë¿ï¿½×¢ï¿½ï¿½");
 		Container con = my.getContentPane();
 		con.setLayout(new GridLayout(7, 2, 0, 50));
 		JPanel p1 = new JPanel(new GridLayout(1, 2, 100, 50));
-		JLabel j1 = new JLabel("ÓÃ»§Ãû", SwingConstants.CENTER);
-		JLabel j2 = new JLabel("ÕæÊµÐÕÃû", SwingConstants.CENTER);
-		JLabel j3 = new JLabel("ÊÖ»úºÅÂë", SwingConstants.CENTER);
-		JLabel j4 = new JLabel("Éí·ÝÖ¤ºÅÂë", SwingConstants.CENTER);
-		JLabel j5 = new JLabel("ÃÜÂë", SwingConstants.CENTER);
-		JLabel j6 = new JLabel("È·ÈÏÃÜÂë", SwingConstants.CENTER);
-		JButton b1 = new JButton("Ìá½»");
-		JButton b2 = new JButton("·µ»Ø");
+		JLabel j1 = new JLabel("ï¿½Ã»ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j2 = new JLabel("ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j3 = new JLabel("ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j4 = new JLabel("ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j5 = new JLabel("ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JLabel j6 = new JLabel("È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SwingConstants.CENTER);
+		JButton b1 = new JButton("ï¿½á½»");
+		JButton b2 = new JButton("ï¿½ï¿½ï¿½ï¿½");
 		JTextField t1 = new JTextField("");
 		JTextField t2 = new JTextField("");
 		JTextField t3 = new JTextField("");
 		JTextField t4 = new JTextField("");
 		JPasswordField t5 = new JPasswordField("");
 		JPasswordField t6 = new JPasswordField("");
-		j1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j3.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j4.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j5.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		j6.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		b2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t1.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t2.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t3.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t4.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t5.setFont(new Font("ËÎÌå", Font.BOLD, 30));
-		t6.setFont(new Font("ËÎÌå", Font.BOLD, 30));
+		j1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j4.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j5.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		j6.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		b2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t1.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t4.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t5.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
+		t6.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 30));
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (new String(t5.getPassword()).equals(new String(t6.getPassword()))) {
@@ -199,7 +197,7 @@ public class managePassenger {
 						t6.setText("");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "ÃÜÂë²»Ò»ÖÂ");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ë²»Ò»ï¿½ï¿½");
 					t5.setText("");
 					t6.setText("");
 				}
@@ -226,7 +224,7 @@ public class managePassenger {
 		con.add(t6);
 		con.add(p1);
 		my.setResizable(false);
-		my.setTitle("»¶Ó­½øÈë»úÆ±Ô¤¶©ÏµÍ³");
+		my.setTitle("ï¿½ï¿½Ó­ï¿½ï¿½ï¿½ï¿½ï¿½Æ±Ô¤ï¿½ï¿½ÏµÍ³");
 		my.setVisible(true);
 		my.setBounds(400, 100, 650, 700);
 	}

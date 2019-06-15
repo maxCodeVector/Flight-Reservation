@@ -3,12 +3,12 @@ package plane;
 import java.util.ArrayList;
 
 public class Admin {
-	// Admin�࣬��������Ӧ�Ĺ���Ա��һЩ�������Ժͷ�����
+
 	private String userName;
 	private String password;
 	private String realName;
 
-	// ����set��get����
+
 	public String getUserName() {
 		return userName;
 	}
@@ -35,7 +35,6 @@ public class Admin {
 
 	static ArrayList<Admin> admin = new ArrayList<>();
 
-	// ���ù�����
 	public Admin() {
 	}
 	
